@@ -20,15 +20,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.kuflow.cli;
+package com.kuflow.cli.core.command;
 
-import com.kuflow.cli.core.command.MainCommand;
-import picocli.CommandLine;
+import com.kuflow.cli.core.model.EnvironmentProperties;
+import com.kuflow.cli.core.util.RestClientFactory;
+import com.kuflow.rest.KuFlowRestClient;
 
-public class KuFlowCLi {
+public abstract class AbstractCommand {
 
-    public static void main(String[] args) {
-        CommandLine cmd = new CommandLine(new MainCommand());
-        cmd.execute(args);
+    private KuFlowRestClient kuFlowRestClient;
+
+    protected KuFlowRestClient getKuFlowRestClient(EnvironmentProperties properties) {
+        if (this.kuFlowRestClient == null) {
+            RestClientFactory.kuFlowRestClient(properties);
+        }
+
+        return this.kuFlowRestClient;
     }
 }

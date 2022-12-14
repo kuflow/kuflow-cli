@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.kuflow</groupId>
+  <artifactId>kuflow-cli</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>KuFlow CLI</name>
+  <description>KuFlow command line interface</description>
+
+  <properties>
+    <maven.version>3.8.6</maven.version>
+    <java.version>11</java.version>
+    <resource.delimiter>#</resource.delimiter>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx256m</argLine>
+
+    <!-- Application dependencies -->
+    <picocli-spring-boot-starter.version>4.7.0</picocli-spring-boot-starter.version>
+    <dotenv-java.version>2.3.1</dotenv-java.version>
+  </properties>
+
+  <dependencies>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>info.picocli</groupId>
+        <artifactId>picocli-spring-boot-starter</artifactId>
+        <version>${picocli-spring-boot-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.cdimascio</groupId>
+        <artifactId>dotenv-java</artifactId>
+        <version>${dotenv-java.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+    </pluginManagement>
+  </build>
+
+  <url>https://github.com/kuflow/kuflow-cli</url>
+</project>

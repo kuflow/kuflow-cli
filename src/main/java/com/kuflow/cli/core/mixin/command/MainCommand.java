@@ -20,21 +20,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.kuflow.cli.core.command;
+package com.kuflow.cli.core.mixin.command;
 
-import com.kuflow.cli.core.model.EnvironmentProperties;
-import com.kuflow.cli.core.util.RestClientFactory;
-import com.kuflow.rest.KuFlowRestClient;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Mixin;
 
-public abstract class AbstractCommand {
+@Command(
+    name = "kuflowctl",
+    mixinStandardHelpOptions = true,
+    subcommands = { SaveElementFieldCommand.class, SaveElementDocumentCommand.class }
+)
+public class MainCommand implements Runnable {
 
-    private KuFlowRestClient kuFlowRestClient;
+    @Mixin
+    public MainMixin mainMixin;
 
-    protected KuFlowRestClient getKuFlowRestClient(EnvironmentProperties properties) {
-        if (this.kuFlowRestClient == null) {
-            RestClientFactory.kuFlowRestClient(properties);
-        }
-
-        return this.kuFlowRestClient;
+    @Override
+    public void run() {
+        new CommandLine(this).usage(System.out);
     }
 }

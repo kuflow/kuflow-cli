@@ -1,30 +1,44 @@
 /*
- * Copyright (c) 2021-present KuFlow S.L.
+ * The MIT License
+ * Copyright © 2021-present KuFlow S.L.
  *
- * All rights reserved.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
-
 package com.kuflow.cli.core.enumeration;
 
 public enum CommandType {
-  SAVE_ELEMENT(Key.SAVE_ELEMENT),
-  SAVE_ELEMENT__FIELD(Key.SAVE_ELEMENT__FIELD),
-  SAVE_ELEMENT__DOCUMENT(Key.SAVE_ELEMENT__DOCUMENT);
+    SAVE_ELEMENT_FIELD(Key.SAVE_ELEMENT_FIELD),
+    SAVE_ELEMENT_DOCUMENT(Key.SAVE_ELEMENT_DOCUMENT);
 
-  private final String name;
+    private final String name;
 
-  CommandType(String name) {
-    this.name = name;
-  }
+    CommandType(String name) {
+        this.name = name;
+    }
 
-  public String getName() {
-    return this.name;
-  }
+    public String getName() {
+        return this.name;
+    }
 
-  public static class Key {
+    public static class Key {
 
-    public static final String SAVE_ELEMENT = "save-element";
-    public static final String SAVE_ELEMENT__DOCUMENT = "document";
-    public static final String SAVE_ELEMENT__FIELD = "field";
-  }
+        public static final String SAVE_ELEMENT_DOCUMENT = "save-element-document";
+        public static final String SAVE_ELEMENT_FIELD = "save-element-field";
+    }
 }

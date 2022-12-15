@@ -20,15 +20,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.kuflow.cli;
+package com.kuflow.cli.core.mixin.command;
 
-import com.kuflow.cli.core.mixin.command.MainCommand;
-import picocli.CommandLine;
+import java.util.UUID;
+import picocli.CommandLine.Option;
 
-public class KuFlowCLi {
+public class SaveElementMixin {
 
-    public static void main(String[] args) {
-        CommandLine cmd = new CommandLine(new MainCommand());
-        cmd.execute(args);
-    }
+    @Option(names = { "-t", "--task-id" }, description = "Task identifier", required = true)
+    public UUID taskId;
+
+    @Option(names = { "-e", "--element-code" }, description = "Task element code", required = true)
+    public String elementCode;
+
+    // TODO KF: In CLI, "valid" is only supported for all element values, not individual values.
+    @Option(
+        names = "--valid",
+        negatable = true,
+        description = "Mark element value/s as valid. Is only supported for all element values, not individual values. True by default."
+    )
+    public boolean valid = true;
 }

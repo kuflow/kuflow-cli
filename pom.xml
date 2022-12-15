@@ -41,8 +41,8 @@
     <java.version>11</java.version>
     <resource.delimiter>#</resource.delimiter>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.11</maven.compiler.source>
-    <maven.compiler.target>1.11</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <argLine>-Djava.security.egd=file:/dev/./urandom -Xmx256m</argLine>
 
     <!-- Maven plugin dependencies -->
@@ -54,8 +54,9 @@
 
     <!-- Application dependencies -->
     <picocli.version>4.7.0</picocli.version>
-    <dotenv-java.version>2.3.1</dotenv-java.version>
-    <kuflow-rest.version>2.0.0-RC2</kuflow-rest.version>
+    <!-- <dotenv-java.version>2.3.1</dotenv-java.version> -->
+    <snakeyaml.version>1.33</snakeyaml.version>
+    <kuflow-rest.version>2.0.0-RC3</kuflow-rest.version>
   </properties>
 
   <dependencies>
@@ -64,9 +65,28 @@
       <artifactId>picocli</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-access</artifactId>
+      <version>1.2.11</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.11</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.2.11</version>
+    </dependency>
+    <!-- <dependency>
       <groupId>io.github.cdimascio</groupId>
       <artifactId>dotenv-java</artifactId>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>com.kuflow</groupId>
       <artifactId>kuflow-rest</artifactId>
@@ -81,10 +101,15 @@
         <version>${picocli.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${snakeyaml.version}</version>
+      </dependency>
+      <!-- <dependency>
         <groupId>io.github.cdimascio</groupId>
         <artifactId>dotenv-java</artifactId>
         <version>${dotenv-java.version}</version>
-      </dependency>
+      </dependency> -->
       <dependency>
         <groupId>com.kuflow</groupId>
         <artifactId>kuflow-rest</artifactId>

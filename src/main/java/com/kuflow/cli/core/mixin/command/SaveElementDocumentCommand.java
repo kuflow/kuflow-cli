@@ -86,6 +86,9 @@ public class SaveElementDocumentCommand extends AbstractCommand implements Runna
 
         BinaryData file = BinaryData.fromFile(fileToUpload);
         Document document = new Document().setFileContent(file);
+        document.setFileName(fileToUpload.getFileName().toString());
+        document.setContentType("image/png"); // TODO
+
         super
             .getKuFlowRestClient(this.getEnvironmentProperties(this.mainMixin))
             .getTaskOperations()

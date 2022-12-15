@@ -41,6 +41,9 @@ import picocli.CommandLine.Parameters;
 public class SaveElementDocumentCommand extends AbstractCommand implements Runnable {
 
     @Mixin
+    public LoggingMixin loggingMixin;
+
+    @Mixin
     private MainMixin mainMixin;
 
     @Mixin

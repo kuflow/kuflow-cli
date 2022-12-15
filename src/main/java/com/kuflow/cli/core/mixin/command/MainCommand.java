@@ -34,6 +34,9 @@ import picocli.CommandLine.Mixin;
 public class MainCommand implements Runnable {
 
     @Mixin
+    public LoggingMixin loggingMixin;
+
+    @Mixin
     public MainMixin mainMixin;
 
     @Override

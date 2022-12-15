@@ -153,32 +153,4 @@ public abstract class AbstractCommand {
 
         return propertiesEnvironmentFile;
     }
-
-    // private EnvironmentProperties loadFromEnvironmentFileOrEnvironmentProperty(String directory, String fileName) {
-    //     Dotenv dotenv = Dotenv.configure().directory(directory).filename(fileName).ignoreIfMissing().load();
-
-    //     boolean error = false;
-    //     String endpoint = dotenv.get(KUFLOW_ENV_VAR__ENDPOINT);
-    //     error |= !this.checkDefined(endpoint, KUFLOW_ENV_VAR__ENDPOINT);
-
-    //     String clientId = dotenv.get(KUFLOW_ENV_VAR__CLIENT_ID);
-    //     error |= !this.checkDefined(clientId, KUFLOW_ENV_VAR__CLIENT_ID);
-
-    //     String clientSecret = dotenv.get(KUFLOW_ENV_VAR__CLIENT_SECRET);
-    //     error |= !this.checkDefined(clientSecret, KUFLOW_ENV_VAR__CLIENT_SECRET);
-
-    //     if (error) {
-    //         return null;
-    //     }
-
-    //     return new EnvironmentProperties(endpoint, clientId, clientSecret);
-    // }
-
-    private boolean checkDefined(String value, String valueName) {
-        if (value == null || value == "") {
-            return false;
-        }
-
-        return true;
-    }
 }

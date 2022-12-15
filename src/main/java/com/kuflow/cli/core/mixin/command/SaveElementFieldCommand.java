@@ -23,7 +23,6 @@
 package com.kuflow.cli.core.mixin.command;
 
 import com.kuflow.cli.core.enumeration.CommandType;
-import com.kuflow.rest.KuFlowRestClient;
 import com.kuflow.rest.model.TaskSaveElementCommand;
 import java.util.List;
 import picocli.CommandLine.Command;
@@ -32,6 +31,9 @@ import picocli.CommandLine.Parameters;
 
 @Command(name = CommandType.Key.SAVE_ELEMENT_FIELD, mixinStandardHelpOptions = true)
 public class SaveElementFieldCommand extends AbstractCommand implements Runnable {
+
+    @Mixin
+    public LoggingMixin loggingMixin;
 
     @Mixin
     public MainMixin mainMixin;

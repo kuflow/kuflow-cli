@@ -54,8 +54,6 @@ public class MainMixin {
     @Spec(MIXEE)
     private CommandSpec mixee; // spec of the command where the @Mixin is used
 
-    private boolean silent = false;
-
     private EnvFileOrEnvOptions envFileOrEnvOptions;
 
     @ArgGroup(exclusive = true, multiplicity = "0..1")
@@ -66,15 +64,6 @@ public class MainMixin {
 
     public static MainMixin getTopLevelCommandMainMixin(CommandSpec commandSpec) {
         return ((MainCommand) commandSpec.root().userObject()).mainMixin;
-    }
-
-    @Option(names = "--silent", negatable = true, description = "Silent output. False by default.")
-    public void setSilent(boolean silent) {
-        getTopLevelCommandMainMixin(this.mixee).silent = silent;
-    }
-
-    public boolean getGlobalSilent() {
-        return getTopLevelCommandMainMixin(this.mixee).silent;
     }
 
     public EnvFileOrEnvOptions getGlobalEnvFileOrEnvOptions() {

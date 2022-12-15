@@ -22,13 +22,17 @@
  */
 package com.kuflow.cli;
 
+import com.kuflow.cli.core.mixin.command.LoggingMixin;
 import com.kuflow.cli.core.mixin.command.MainCommand;
 import picocli.CommandLine;
 
 public class KuFlowCLi {
+    static {
+        LoggingMixin.initializeLog4j();
+    }
 
     public static void main(String[] args) {
         CommandLine cmd = new CommandLine(new MainCommand());
-        cmd.execute(args);
+        cmd.setExecutionStrategy(LoggingMixin::executionStrategy).execute(args);
     }
 }

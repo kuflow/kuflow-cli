@@ -22,8 +22,11 @@
  */
 package com.kuflow.cli.core.mixin.command;
 
+import static java.util.stream.Collectors.joining;
+
 import com.azure.core.util.BinaryData;
 import com.kuflow.cli.core.enumeration.CommandType;
+import com.kuflow.cli.core.util.FileUtils;
 import com.kuflow.rest.model.Document;
 import com.kuflow.rest.model.TaskSaveElementValueDocumentCommand;
 import java.nio.file.Files;
@@ -64,10 +67,8 @@ public class SaveElementDocumentCommand extends AbstractCommand implements Runna
         List<Path> invalidFiles = this.paths.stream().filter(p -> Files.isDirectory(p)).collect(Collectors.toList());
 
         if (!invalidFiles.isEmpty()) {
-            // TODO Loggin error if NOT SILENT. create custom exception and optional mapping
-            // error code?
-            System.out.println("Directories unssuported");
-            throw new RuntimeException("Directories unssuported");
+            String invalidPaths = invalidFiles.stream().map(p -> p.toString()).collect(joining(", "));
+            throw new RuntimeException(String.format("Directories are not supported, specify file paths. [%s]", invalidPaths));
         }
 
         this.paths.stream()
@@ -75,8 +76,7 @@ public class SaveElementDocumentCommand extends AbstractCommand implements Runna
                 try {
                     this.uploadFile(p);
                 } catch (Exception e) {
-                    // TODO Loggin error if NOT SILENT. create custom exception and optional mapping
-                    throw new RuntimeException(e);
+                    throw new RuntimeException(String.format("Unable to upload file: %s", p), e);
                 }
             });
     }
@@ -90,7 +90,7 @@ public class SaveElementDocumentCommand extends AbstractCommand implements Runna
         BinaryData file = BinaryData.fromFile(fileToUpload);
         Document document = new Document().setFileContent(file);
         document.setFileName(fileToUpload.getFileName().toString());
-        document.setContentType("image/png"); // TODO
+        document.setContentType(FileUtils.guessMimeType(fileToUpload));
 
         super
             .getKuFlowRestClient(this.getEnvironmentProperties(this.mainMixin))

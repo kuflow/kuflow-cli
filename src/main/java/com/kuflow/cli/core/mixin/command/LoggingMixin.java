@@ -51,14 +51,7 @@ import picocli.CommandLine.Spec;
  *   <li>{@code -v} : INFO level is enabled</li>
  *   <li>(not specified) : WARN level is enabled</li>
  * </ul>
- * <p>
- *   To add the {@code --verbose} option to a command, simply declare a {@code @Mixin}-annotated field with type {@code LoggingMixin}
- *   (if your command is a class), or a {@code @Mixin}-annotated method parameter of type {@code LoggingMixin} if your command
- *   is a {@code @Command}-annotated method.
- * </p>
- * <p>
- *   This mixin can be used on multiple commands, on any level in the command hierarchy.
- * </p>
+ * With {@code ---silent} not logs are shown.
  * <p>
  *   Make sure that {@link #configureLoggers} is called before executing any command.
  *   This can be accomplished with:
@@ -77,7 +70,7 @@ public class LoggingMixin {
      * {@code @Spec(Target.MIXEE)}-annotated field gets a reference to the command where it is used.
      */
     @Spec(MIXEE)
-    private CommandSpec mixee; // spec of the command where the @Mixin is used
+    private CommandSpec mixee;
 
     private boolean[] verbosity = new boolean[0];
 
@@ -88,41 +81,29 @@ public class LoggingMixin {
     // We want to store the verbosity value in a single, central place, so
     // we find the top-level command,
     // and store the verbosity level on our top-level command's LoggingMixin.
-    //
-    // In the main method, `LoggingMixin::executionStrategy` should be set as the execution strategy:
-    // that will take the verbosity level that we stored in the top-level command's LoggingMixin
-    // to configure Log4j2 before executing the command that the user specified.
     private static LoggingMixin getTopLevelCommandLoggingMixin(CommandSpec commandSpec) {
         return ((MainCommand) commandSpec.root().userObject()).loggingMixin;
     }
 
-    /**
-     * Sets the specified verbosity on the LoggingMixin of the top-level command.
-     * @param verbosity the new verbosity value
-     */
     @Option(
         names = { "-v", "--verbose" },
         description = { "Specify multiple -v options to increase verbosity.", "For example, `-v -v -v` or `-vvv`" }
     )
     public void setVerbose(boolean[] verbosity) {
-        this.getTopLevelCommandLoggingMixin(this.mixee).verbosity = verbosity;
+        getTopLevelCommandLoggingMixin(this.mixee).verbosity = verbosity;
     }
 
-    /**
-     * Returns the verbosity from the LoggingMixin of the top-level command.
-     * @return the verbosity value
-     */
     public boolean[] getVerbosity() {
-        return this.getTopLevelCommandLoggingMixin(this.mixee).verbosity;
+        return getTopLevelCommandLoggingMixin(this.mixee).verbosity;
     }
 
     @Option(names = { "-s", "--silent" }, negatable = true, description = "Silent output. False by default.")
     public void setSilent(boolean silent) {
-        this.getTopLevelCommandLoggingMixin(this.mixee).silent = silent;
+        getTopLevelCommandLoggingMixin(this.mixee).silent = silent;
     }
 
     public boolean getSilent() {
-        return this.getTopLevelCommandLoggingMixin(this.mixee).silent;
+        return getTopLevelCommandLoggingMixin(this.mixee).silent;
     }
 
     /**
@@ -157,7 +138,7 @@ public class LoggingMixin {
      * </ul>
      */
     public void configureLoggers() {
-        Level level = getTopLevelCommandLoggingMixin(this.mixee).calcLogLevel(true);
+        Level level = getTopLevelCommandLoggingMixin(this.mixee).calculateLogLevel();
 
         LoggerContext loggerContext = LoggerContext.getContext(false);
         LoggerConfig rootConfig = loggerContext.getConfiguration().getRootLogger();
@@ -175,8 +156,13 @@ public class LoggingMixin {
         loggerContext.updateLoggers(); // apply the changes
     }
 
-    private Level calcLogLevel(boolean console) {
-        if (console && this.getSilent()) {
+    /**
+     * Get right Log level
+     *
+     * @return the Log Level for the current options
+     */
+    private Level calculateLogLevel() {
+        if (this.getSilent()) {
             return Level.OFF;
         }
 
@@ -195,7 +181,7 @@ public class LoggingMixin {
     /**
      * Reconfigure Log4j Using ConfigurationBuilder with the Configurator
      *
-     * @return
+     * @return Initialized LoggerContext
      */
     public static LoggerContext initializeLog4j() {
         ConfigurationBuilder<BuiltConfiguration> builder = ConfigurationBuilderFactory.newConfigurationBuilder();

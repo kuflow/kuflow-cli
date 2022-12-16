@@ -51,12 +51,13 @@
     <prettier-maven-plugin.version>0.18</prettier-maven-plugin.version>
     <prettier-java.version>1.6.2</prettier-java.version>
     <license-maven-plugin.version>4.1</license-maven-plugin.version>
+    <maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
 
     <!-- Application dependencies -->
     <picocli.version>4.7.0</picocli.version>
     <!-- <dotenv-java.version>2.3.1</dotenv-java.version> -->
     <snakeyaml.version>1.33</snakeyaml.version>
-    <kuflow-rest.version>2.0.0-RC3</kuflow-rest.version>
+    <kuflow-rest.version>2.0.0-RC4</kuflow-rest.version>
     <log4j.version>2.19.0</log4j.version>
   </properties>
 
@@ -192,6 +193,21 @@
               <phase>validate</phase>
             </execution>
           </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <!-- annotationProcessorPaths requires maven-compiler-plugin version 3.5 or higher -->
+          <version>${maven-compiler-plugin-version}</version>
+          <configuration>
+            <annotationProcessorPaths>
+              <path>
+                <groupId>info.picocli</groupId>
+                <artifactId>picocli-codegen</artifactId>
+                <version>${picocli.version}</version>
+              </path>
+            </annotationProcessorPaths>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>

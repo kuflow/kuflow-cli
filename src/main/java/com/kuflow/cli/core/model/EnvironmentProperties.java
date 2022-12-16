@@ -22,6 +22,8 @@
  */
 package com.kuflow.cli.core.model;
 
+import com.kuflow.cli.core.util.StringUtils;
+
 public class EnvironmentProperties {
 
     private KuFlowProperties kuflow = new KuFlowProperties();
@@ -69,5 +71,29 @@ public class EnvironmentProperties {
         public boolean isFilled() {
             return this.endpoint != null && this.clientId != null && this.clientSecret != null;
         }
+
+        @Override
+        public String toString() {
+            String hideSecret = (StringUtils.isBlank(this.clientSecret)) ? "" : "****";
+            return "[endpoint=" + this.endpoint + ", clientId=" + this.clientId + ", clientSecret=" + hideSecret + "]";
+        }
+    }
+
+    public EnvironmentProperties merge(EnvironmentProperties other) {
+        KuFlowProperties otherKuFlowProperties = other.getKuflow();
+
+        if (StringUtils.isBlank(this.getKuflow().getEndpoint())) {
+            this.getKuflow().setEndpoint(otherKuFlowProperties.getEndpoint());
+        }
+
+        if (StringUtils.isBlank(this.getKuflow().getClientId())) {
+            this.getKuflow().setClientId(otherKuFlowProperties.getClientId());
+        }
+
+        if (StringUtils.isBlank(this.getKuflow().getClientSecret())) {
+            this.getKuflow().setClientSecret(otherKuFlowProperties.getClientSecret());
+        }
+
+        return this;
     }
 }

@@ -76,7 +76,7 @@ public class MainMixin {
 
         private Path environmentFile;
 
-        private EnvOptions envOptions = new EnvOptions();
+        private EnvOptions envOptions;
 
         @Option(names = "--environment-file", description = "environmentFile")
         public void setEnvironmentFile(Path environmentFile) {

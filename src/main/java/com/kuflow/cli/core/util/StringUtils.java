@@ -20,21 +20,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.kuflow.cli.core.mixin.command;
+package com.kuflow.cli.core.util;
 
-import com.kuflow.cli.core.model.EnvironmentProperties;
-import com.kuflow.cli.core.util.RestClientFactory;
-import com.kuflow.rest.KuFlowRestClient;
+public class StringUtils {
 
-public abstract class AbstractCommand {
+    public static boolean isEmpty(final CharSequence cs) {
+        return cs == null || cs.length() == 0;
+    }
 
-    private KuFlowRestClient kuFlowRestClient;
-
-    protected KuFlowRestClient getKuFlowRestClient(EnvironmentProperties properties) {
-        if (this.kuFlowRestClient == null) {
-            this.kuFlowRestClient = RestClientFactory.kuFlowRestClient(properties);
+    public static boolean isBlank(final CharSequence cs) {
+        final int strLen = length(cs);
+        if (strLen == 0) {
+            return true;
         }
+        for (int i = 0; i < strLen; i++) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-        return this.kuFlowRestClient;
+    public static int length(final CharSequence cs) {
+        return cs == null ? 0 : cs.length();
     }
 }

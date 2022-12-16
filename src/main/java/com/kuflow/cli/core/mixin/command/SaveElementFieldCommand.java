@@ -28,18 +28,19 @@ import java.util.List;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Parameters;
+import picocli.CommandLine.ParentCommand;
 
 @Command(name = CommandType.Key.SAVE_ELEMENT_FIELD, mixinStandardHelpOptions = true)
 public class SaveElementFieldCommand extends AbstractCommand implements Runnable {
+
+    @ParentCommand
+    private MainCommand mainCommand;
 
     @Mixin
     public LoggingMixin loggingMixin;
 
     @Mixin
-    public MainMixin mainMixin;
-
-    @Mixin
-    private SaveElementMixin saveElementMixin;
+    public SaveElementMixin saveElementMixin;
 
     // TODO KF: All CLI parameters are treated as a list of strings. To be improved in the future.
     // @Option(names = { "-ft", "--field-type" }, description = "Field type, 'TEXT' by default", defaultValue = FieldType.Key.STRING)
@@ -56,7 +57,7 @@ public class SaveElementFieldCommand extends AbstractCommand implements Runnable
         taskSaveElementCommand.setElementValueValid(this.saveElementMixin.valid);
 
         super
-            .getKuFlowRestClient(this.getEnvironmentProperties(this.mainMixin))
+            .getKuFlowRestClient(this.mainCommand.getEnvironmentProperties())
             .getTaskOperations()
             .actionsTaskSaveElement(this.saveElementMixin.taskId, taskSaveElementCommand);
     }

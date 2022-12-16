@@ -20,21 +20,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.kuflow.cli.core.mixin.command;
+package com.kuflow.cli.core.util;
 
-import com.kuflow.cli.core.model.EnvironmentProperties;
-import com.kuflow.cli.core.util.RestClientFactory;
-import com.kuflow.rest.KuFlowRestClient;
+public class Constants {
 
-public abstract class AbstractCommand {
+    public static final String KUFLOW_REST_API_ENDPOINT = "https://api.kuflow.com";
 
-    private KuFlowRestClient kuFlowRestClient;
+    public static final String KUFLOW_ENVIRONMENT_FILE = ".kuflow.yml";
 
-    protected KuFlowRestClient getKuFlowRestClient(EnvironmentProperties properties) {
-        if (this.kuFlowRestClient == null) {
-            this.kuFlowRestClient = RestClientFactory.kuFlowRestClient(properties);
-        }
-
-        return this.kuFlowRestClient;
-    }
+    public static final String KUFLOW_ENV_VAR__ENDPOINT = "KUFLOW_ENDPOINT";
+    public static final String KUFLOW_ENV_VAR__CLIENT_ID = "KUFLOW_CLIENT_ID";
+    public static final String KUFLOW_ENV_VAR__CLIENT_SECRET = "KUFLOW_CLIENT_SECRET";
 }

@@ -39,18 +39,19 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import picocli.CommandLine.ParentCommand;
 
 @Command(name = CommandType.Key.SAVE_ELEMENT_DOCUMENT, mixinStandardHelpOptions = true)
 public class SaveElementDocumentCommand extends AbstractCommand implements Runnable {
+
+    @ParentCommand
+    private MainCommand mainCommand;
 
     @Mixin
     public LoggingMixin loggingMixin;
 
     @Mixin
-    private MainMixin mainMixin;
-
-    @Mixin
-    private SaveElementMixin saveElementMixin;
+    public SaveElementMixin saveElementMixin;
 
     @Option(
         names = { "-doi", "--document-id" },
@@ -93,7 +94,7 @@ public class SaveElementDocumentCommand extends AbstractCommand implements Runna
         document.setContentType(FileUtils.guessMimeType(fileToUpload));
 
         super
-            .getKuFlowRestClient(this.getEnvironmentProperties(this.mainMixin))
+            .getKuFlowRestClient(this.mainCommand.getEnvironmentProperties())
             .getTaskOperations()
             .actionsTaskSaveElementValueDocument(this.saveElementMixin.taskId, command, document);
     }

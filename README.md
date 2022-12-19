@@ -1,7 +1,7 @@
 [![GitHub](https://img.shields.io/github/license/kuflow/kuflow-cli?label=License)](https://github.com/kuflow/kuflow-cli/blob/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/com.kuflow/kuflow-cli?label=Maven%20Central)](https://search.maven.org/artifact/com.kuflow/kuflow-cli)
 
-# KuFlow SDK for Java
+# KuFlow CLI
 
 > ***"KuFlow is a platform on which you can design and execute your business processes"***
 

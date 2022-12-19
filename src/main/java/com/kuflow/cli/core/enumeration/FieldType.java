@@ -22,6 +22,9 @@
  */
 package com.kuflow.cli.core.enumeration;
 
+/**
+ * TODO supported subset of com.kuflow.rest.model.TaskElementValueType
+ */
 public enum FieldType {
     STRING(Key.STRING),
     NUMBER(Key.NUMBER),

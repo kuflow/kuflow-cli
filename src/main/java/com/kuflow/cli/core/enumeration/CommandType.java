@@ -24,7 +24,8 @@ package com.kuflow.cli.core.enumeration;
 
 public enum CommandType {
     SAVE_ELEMENT_FIELD(Key.SAVE_ELEMENT_FIELD),
-    SAVE_ELEMENT_DOCUMENT(Key.SAVE_ELEMENT_DOCUMENT);
+    SAVE_ELEMENT_DOCUMENT(Key.SAVE_ELEMENT_DOCUMENT),
+    APPEND_LOG(Key.APPEND_LOG);
 
     private final String name;
 
@@ -40,5 +41,6 @@ public enum CommandType {
 
         public static final String SAVE_ELEMENT_DOCUMENT = "save-element-document";
         public static final String SAVE_ELEMENT_FIELD = "save-element-field";
+        public static final String APPEND_LOG = "append-log";
     }
 }

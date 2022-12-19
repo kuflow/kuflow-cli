@@ -300,7 +300,7 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
             <descriptors>
-                <descriptor>/home/zeben/dev/kuflow/src/kuflow-cli/src/assembly/distribution.xml</descriptor>
+                <descriptor>src/kuflow-cli/src/assembly/distribution.xml</descriptor>
             </descriptors>
             <tarLongFileMode>posix</tarLongFileMode>
         </configuration>

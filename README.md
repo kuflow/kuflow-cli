@@ -94,7 +94,7 @@ KUFLOW_ENDPOINT=https://api.kuflow.com
 ```
 ## Documentation
 
-TODO See more... [*1*]
+TODO See more... [*]
 
 ## Contributing
 

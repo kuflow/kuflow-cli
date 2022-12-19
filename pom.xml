@@ -52,7 +52,6 @@
     <prettier-java.version>1.6.2</prettier-java.version>
     <license-maven-plugin.version>4.1</license-maven-plugin.version>
     <maven-compiler-plugin-version>3.10.1</maven-compiler-plugin-version>
-    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
     <really-executable-jar-maven-plugin.version>2.0.0</really-executable-jar-maven-plugin.version>
 
@@ -217,11 +216,6 @@
           <version>${maven-shade-plugin.version}</version>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>${maven-source-plugin.version}</version>
-        </plugin>
-        <plugin>
           <groupId>org.skife.maven</groupId>
           <artifactId>really-executable-jar-maven-plugin</artifactId>
           <version>${really-executable-jar-maven-plugin.version}</version>
@@ -248,18 +242,6 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
         <executions>
           <execution>
@@ -276,6 +258,7 @@
                 </manifestEntries>
                 </transformer>
               </transformers>
+              <createDependencyReducedPom>false</createDependencyReducedPom>
               <filters>
                 <filter>
                     <artifact>*:*</artifact>

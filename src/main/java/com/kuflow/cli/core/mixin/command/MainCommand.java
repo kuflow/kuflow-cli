@@ -47,7 +47,7 @@ import picocli.CommandLine.Option;
 @Command(
     name = "kuflowctl",
     mixinStandardHelpOptions = true,
-    subcommands = { SaveElementFieldCommand.class, SaveElementDocumentCommand.class, AppendLogCommand.class }
+    subcommands = { AppendLogCommand.class, SaveElementFieldCommand.class, SaveElementDocumentCommand.class }
 )
 public class MainCommand implements Runnable {
 
@@ -66,7 +66,10 @@ public class MainCommand implements Runnable {
 
     static class EnvFileOrEnvOptions {
 
-        @Option(names = "--environment-file", description = "environmentFile")
+        @Option(
+            names = "--environment-file",
+            description = "Environment file in YAML format. More info: https://github.com/kuflow/kuflow-cli"
+        )
         private Path environmentFile;
 
         @ArgGroup(exclusive = false, multiplicity = "1")

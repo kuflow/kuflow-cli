@@ -13,7 +13,7 @@ This project is a command-line client for KuFlow Rest API.
 
 **Important**. For its correct operation, it is necessary to have JAVA installed and available in the system path. The minimum version required is 11.
 
-Download the binary from Github.
+Download the archive from Github [releases](https://github.com/kuflow/kuflow-cli/releases), and unpack it to a location of your choice.
 
 ## Usage
 

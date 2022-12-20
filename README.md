@@ -42,8 +42,10 @@ Usage: kuflowctl [-hsVv] [--endpoint=<endpoint>]
   -V, --version       Print version information and exit.
 Commands:
   append-log
-  save-element-field
+  save-element-document-by-reference
   save-element-document
+  save-element-field
+  save-element-principal
 ```
 
 ### Authentication

@@ -47,7 +47,13 @@ import picocli.CommandLine.Option;
 @Command(
     name = "kuflowctl",
     mixinStandardHelpOptions = true,
-    subcommands = { AppendLogCommand.class, SaveElementFieldCommand.class, SaveElementDocumentCommand.class }
+    subcommands = {
+        AppendLogCommand.class,
+        SaveElementDocumentByReferenceCommand.class,
+        SaveElementDocumentCommand.class,
+        SaveElementFieldCommand.class,
+        SaveElementPrincipalCommand.class,
+    }
 )
 public class MainCommand implements Runnable {
 

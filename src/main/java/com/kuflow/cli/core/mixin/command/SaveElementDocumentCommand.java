@@ -53,11 +53,7 @@ public class SaveElementDocumentCommand extends AbstractCommand implements Runna
     @Mixin
     public SaveElementMixin saveElementMixin;
 
-    @Option(
-        names = { "-doi", "--document-id" },
-        description = "Document identifier. Can be optional.",
-        arity = "0..1"
-    )
+    @Option(names = { "-doi", "--document-id" }, description = "Document identifier. Can be optional.", arity = "0..1")
     private Optional<UUID> documentId;
 
     @Parameters(description = "File path to upload", arity = "1..*")

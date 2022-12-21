@@ -33,6 +33,7 @@ public class KuFlowCLi {
 
     public static void main(String[] args) {
         CommandLine cmd = new CommandLine(new MainCommand());
-        cmd.setExecutionStrategy(LoggingMixin::executionStrategy).execute(args);
+        int exitCode = cmd.setExecutionStrategy(LoggingMixin::executionStrategy).execute(args);
+        System.exit(exitCode);
     }
 }

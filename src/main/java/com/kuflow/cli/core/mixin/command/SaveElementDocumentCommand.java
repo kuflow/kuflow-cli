@@ -55,7 +55,7 @@ public class SaveElementDocumentCommand extends AbstractCommand implements Runna
 
     @Option(
         names = { "-doi", "--document-id" },
-        description = "Document identifier. Can be optional. In a multiple document element, it match with a specific document.",
+        description = "Document identifier. Can be optional.",
         arity = "0..1"
     )
     private Optional<UUID> documentId;
@@ -72,20 +72,22 @@ public class SaveElementDocumentCommand extends AbstractCommand implements Runna
             throw new RuntimeException(String.format("Directories are not supported, specify file paths. [%s]", invalidPaths));
         }
 
+        boolean isMultiple = this.paths.size() > 1;
+
         this.paths.stream()
             .forEach(p -> {
                 try {
-                    this.uploadFile(p);
+                    this.uploadFile(p, isMultiple);
                 } catch (Exception e) {
                     throw new RuntimeException(String.format("Unable to upload file: %s", p), e);
                 }
             });
     }
 
-    private void uploadFile(Path fileToUpload) throws Exception {
+    private void uploadFile(Path fileToUpload, boolean isMultiple) throws Exception {
         TaskSaveElementValueDocumentCommand command = new TaskSaveElementValueDocumentCommand();
         command.setElementDefinitionCode(this.saveElementMixin.elementCode);
-        command.setElementValueId(this.documentId.orElse(null));
+        command.setElementValueId((isMultiple) ? null : this.documentId.orElse(null));
         command.setElementValueValid(this.saveElementMixin.valid);
 
         BinaryData file = BinaryData.fromFile(fileToUpload);

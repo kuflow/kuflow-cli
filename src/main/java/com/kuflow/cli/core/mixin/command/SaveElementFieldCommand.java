@@ -46,14 +46,14 @@ public class SaveElementFieldCommand extends AbstractCommand implements Runnable
     // @Option(names = { "-ft", "--field-type" }, description = "Field type, 'TEXT' by default", defaultValue = FieldType.Key.STRING)
     // private FieldType fieldType = FieldType.STRING;
 
-    @Parameters(description = "value", arity = "1..*")
-    private List<String> value;
+    @Parameters(description = "values", arity = "1..*")
+    private List<String> values;
 
     @Override
     public void run() {
         TaskSaveElementCommand taskSaveElementCommand = new TaskSaveElementCommand();
         taskSaveElementCommand.setElementDefinitionCode(this.saveElementMixin.elementCode);
-        taskSaveElementCommand.setElementValueAsStringList(this.value);
+        taskSaveElementCommand.setElementValueAsStringList(this.values);
         taskSaveElementCommand.setElementValueValid(this.saveElementMixin.valid);
 
         super

@@ -41,6 +41,7 @@ import org.yaml.snakeyaml.introspector.PropertyUtils;
 import picocli.CommandLine;
 import picocli.CommandLine.ArgGroup;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.IExitCodeGenerator;
 import picocli.CommandLine.Mixin;
 import picocli.CommandLine.Option;
 
@@ -49,13 +50,13 @@ import picocli.CommandLine.Option;
     mixinStandardHelpOptions = true,
     subcommands = {
         AppendLogCommand.class,
-        SaveElementDocumentByReferenceCommand.class,
         SaveElementDocumentCommand.class,
+        SaveElementDocumentByReferenceCommand.class,
         SaveElementFieldCommand.class,
         SaveElementPrincipalCommand.class,
     }
 )
-public class MainCommand implements Runnable {
+public class MainCommand implements Runnable, IExitCodeGenerator {
 
     @Mixin
     public LoggingMixin loggingMixin;
@@ -94,6 +95,12 @@ public class MainCommand implements Runnable {
     @Override
     public void run() {
         new CommandLine(this).usage(System.out);
+    }
+
+    @Override
+    public int getExitCode() {
+        // Main command only show the usage help and a error return code
+        return 1;
     }
 
     /**

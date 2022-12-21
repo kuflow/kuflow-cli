@@ -1,5 +1,5 @@
 [![GitHub](https://img.shields.io/github/license/kuflow/kuflow-cli?label=License)](https://github.com/kuflow/kuflow-cli/blob/master/LICENSE)
-[![Maven Central](https://img.shields.io/maven-central/v/com.kuflow/kuflow-cli?label=Maven%20Central)](https://search.maven.org/artifact/com.kuflow/kuflow-cli)
+[![GitHub Release](https://img.shields.io/github/downloads/kuflo/kuflow-cli/latest/kuflow-cli-0.0.1.tar.gz)](https://github.com/kuflow/kuflow-sdk-java/releases)
 
 # KuFlow CLI
 
@@ -34,16 +34,17 @@ Usage: kuflowctl [-hsVv] [--endpoint=<endpoint>]
       --endpoint=<endpoint>
                       KuFlow Api endpoint. By default is https://api.kuflow.com
       --environment-file=<environmentFile>
-                      environmentFile
-  -h, --help          Show this help message and exit
+                      Environment file in YAML format. More info: https:
+                        //github.com/kuflow/kuflow-cli
+  -h, --help          Show this help message and exit.
   -s, --[no-]silent   Silent output. False by default.
   -v, --verbose       Specify multiple -v options to increase verbosity.
                       For example, `-v -v -v` or `-vvv`
   -V, --version       Print version information and exit.
 Commands:
   append-log
-  save-element-document-by-reference
   save-element-document
+  save-element-document-by-reference
   save-element-field
   save-element-principal
 ```
@@ -92,11 +93,11 @@ KUFLOW_CLIENT_ID=YOUR_IDENTIFIER
 KUFLOW_CLIENT_SECRET=YOUR_SECRET
 
 # OPTIONAL KUFLOW REST API. Default is: https://api.kuflow.com
-KUFLOW_ENDPOINT=https://api.kuflow.com
+#KUFLOW_ENDPOINT=https://api.kuflow.com
 ```
 ## Documentation
 
-TODO See more... [*]
+See reference, examples and more in our [documentation](https://docs.kuflow.com/developers/kuflowctl/)
 
 ## Contributing
 

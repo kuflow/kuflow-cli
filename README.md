@@ -1,5 +1,4 @@
 [![GitHub](https://img.shields.io/github/license/kuflow/kuflow-cli?label=License)](https://github.com/kuflow/kuflow-cli/blob/master/LICENSE)
-[![GitHub Release](https://img.shields.io/github/downloads/kuflo/kuflow-cli/latest/kuflow-cli-0.0.1.tar.gz)](https://github.com/kuflow/kuflow-cli/releases)
 
 # KuFlow CLI
 

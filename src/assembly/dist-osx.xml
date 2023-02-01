@@ -25,7 +25,7 @@
 <assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.1 http://maven.apache.org/xsd/assembly-2.1.1.xsd">
-  <id>distribution</id>
+  <id>osx</id>
   <formats>
     <format>tar.gz</format>
     <format>zip</format>
@@ -33,9 +33,10 @@
   <includeBaseDirectory>false</includeBaseDirectory>
   <files>
     <file>
-      <source>target/kuflowctl</source>
+      <source>${project.build.directory}/${artifactId}-${version}.${packaging}</source>
       <outputDirectory></outputDirectory>
       <filtered>false</filtered>
+      <destName>kuflowctl</destName>
     </file>
   </files>
 </assembly>

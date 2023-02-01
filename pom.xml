@@ -59,7 +59,7 @@
     <!-- Application dependencies -->
     <picocli.version>4.7.0</picocli.version>
     <snakeyaml.version>1.33</snakeyaml.version>
-    <kuflow-rest.version>2.0.0-RC4</kuflow-rest.version>
+    <kuflow-rest.version>2.0.1</kuflow-rest.version>
     <log4j.version>2.19.0</log4j.version>
   </properties>
 

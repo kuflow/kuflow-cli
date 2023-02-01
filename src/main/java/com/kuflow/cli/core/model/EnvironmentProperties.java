@@ -22,6 +22,7 @@
  */
 package com.kuflow.cli.core.model;
 
+import com.kuflow.cli.core.util.Constants;
 import com.kuflow.cli.core.util.StringUtils;
 
 public class EnvironmentProperties {
@@ -38,7 +39,7 @@ public class EnvironmentProperties {
 
     public static final class KuFlowProperties {
 
-        private String endpoint;
+        private String endpoint = Constants.KUFLOW_REST_API_ENDPOINT;
 
         private String clientId;
 

@@ -24,13 +24,14 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.kuflow</groupId>
   <artifactId>kuflow-cli</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1-beta2</version>
   <packaging>jar</packaging>
 
   <name>KuFlow CLI</name>
@@ -55,11 +56,12 @@
     <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
     <maven-assembly-plugin.version>3.4.2</maven-assembly-plugin.version>
     <really-executable-jar-maven-plugin.version>2.0.0</really-executable-jar-maven-plugin.version>
+    <launch4j-maven-plugin.version>2.3.2</launch4j-maven-plugin.version>
 
     <!-- Application dependencies -->
     <picocli.version>4.7.0</picocli.version>
     <snakeyaml.version>1.33</snakeyaml.version>
-    <kuflow-rest.version>2.0.0-RC4</kuflow-rest.version>
+    <kuflow-rest.version>2.0.1</kuflow-rest.version>
     <log4j.version>2.19.0</log4j.version>
   </properties>
 
@@ -132,6 +134,7 @@
           </dependencies>
           <executions>
             <execution>
+              <?m2e ignore?>
               <id>checkstyle-validation</id>
               <goals>
                 <goal>check</goal>
@@ -142,8 +145,10 @@
                 <consoleOutput>true</consoleOutput>
                 <includeTestSourceDirectory>true</includeTestSourceDirectory>
                 <configLocation>${maven.multiModuleProjectDirectory}/etc/checkstyle/checkstyle.xml</configLocation>
-                <headerLocation>${maven.multiModuleProjectDirectory}/etc/checkstyle/checkstyle-header.txt</headerLocation>
-                <suppressionsLocation>${maven.multiModuleProjectDirectory}/etc/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+                <headerLocation>
+                  ${maven.multiModuleProjectDirectory}/etc/checkstyle/checkstyle-header.txt</headerLocation>
+                <suppressionsLocation>
+                  ${maven.multiModuleProjectDirectory}/etc/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
                 <suppressionsFileExpression>checkstyle.suppressions.location</suppressionsFileExpression>
               </configuration>
             </execution>
@@ -159,6 +164,7 @@
           </configuration>
           <executions>
             <execution>
+              <?m2e ignore?>
               <goals>
                 <goal>check</goal>
               </goals>
@@ -189,6 +195,7 @@
           </configuration>
           <executions>
             <execution>
+              <?m2e ignore?>
               <goals>
                 <goal>check</goal>
               </goals>
@@ -226,6 +233,11 @@
           <artifactId>maven-assembly-plugin</artifactId>
           <version>${maven-assembly-plugin.version}</version>
         </plugin>
+        <plugin>
+          <groupId>com.akathist.maven.plugins.launch4j</groupId>
+          <artifactId>launch4j-maven-plugin</artifactId>
+          <version>${launch4j-maven-plugin.version}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
 
@@ -257,24 +269,25 @@
             </goals>
             <configuration>
               <transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                <transformer
+                  implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>com.kuflow.cli.KuFlowCLi</mainClass>
                   <manifestEntries>
                     <Multi-Release>true</Multi-Release>
-                </manifestEntries>
+                  </manifestEntries>
                 </transformer>
               </transformers>
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <filters>
                 <filter>
-                    <artifact>*:*</artifact>
-                    <excludes>
-                        <exclude>META-INF/*.SF</exclude>
-                        <exclude>META-INF/*.DSA</exclude>
-                        <exclude>META-INF/*.RSA</exclude>
-                    </excludes>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
                 </filter>
-            </filters>
+              </filters>
             </configuration>
           </execution>
         </executions>
@@ -284,7 +297,6 @@
         <artifactId>really-executable-jar-maven-plugin</artifactId>
         <configuration>
           <flags>-Xmx1G</flags>
-          <programFile>kuflowctl</programFile>
         </configuration>
         <executions>
           <execution>
@@ -296,13 +308,49 @@
         </executions>
       </plugin>
       <plugin>
+        <groupId>com.akathist.maven.plugins.launch4j</groupId>
+        <artifactId>launch4j-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>launch4j</id>
+            <phase>package</phase>
+            <goals>
+              <goal>launch4j</goal>
+            </goals>
+            <configuration>
+              <headerType>console</headerType>
+              <outfile>${project.build.directory}/${project.build.finalName}.exe</outfile>
+              <jar>${project.build.directory}/${project.build.finalName}.jar</jar>
+              <classPath>
+                <mainClass>com.kuflow.cli.KuFlowCLi</mainClass>
+              </classPath>
+              <errTitle>kuflowctl</errTitle>
+              <jre>
+                <minVersion>${java.version}</minVersion>
+                <requiresJdk>false</requiresJdk>
+                <path>./lib/jre</path>
+              </jre>
+              <versionInfo>
+                <fileDescription>KuFlow command line interface</fileDescription>
+                <copyright>Copyright © 2021-present KuFlow S.L.</copyright>
+                <productName>kuflowctl</productName>
+                <internalName>kuflowctl</internalName>
+                <originalFilename>kuflowctl.exe</originalFilename>
+              </versionInfo>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
-            <descriptors>
-                <descriptor>src/assembly/distribution.xml</descriptor>
-            </descriptors>
-            <tarLongFileMode>posix</tarLongFileMode>
+          <descriptors>
+            <descriptor>src/assembly/dist-linux.xml</descriptor>
+            <descriptor>src/assembly/dist-osx.xml</descriptor>
+            <descriptor>src/assembly/dist-windows.xml</descriptor>
+          </descriptors>
+          <tarLongFileMode>posix</tarLongFileMode>
         </configuration>
         <executions>
           <execution>
